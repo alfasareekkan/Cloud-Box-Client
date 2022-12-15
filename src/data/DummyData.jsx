@@ -1,15 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { FiHardDrive, FiFileText,FiCreditCard } from 'react-icons/fi';
+import { FiHardDrive, FiFileText, FiCreditCard } from 'react-icons/fi';
 import { RiTimerLine } from 'react-icons/ri';
-import { AiOutlineStar } from "react-icons/ai";
-import { BsTrash, BsCurrencyDollar,BsShield,  } from "react-icons/bs";
+import { AiOutlineStar } from 'react-icons/ai';
+import { BsTrash, BsCurrencyDollar, BsShield } from 'react-icons/bs';
 import avatar from '../assets/avatar.jpg';
 import avatar2 from '../assets/avatar2.jpg';
 import avatar3 from '../assets/avatar3.png';
 import avatar4 from '../assets/avatar4.jpg';
-
 
 export const links = [
   {
@@ -65,7 +64,6 @@ export const chatData = [
     time: '1:12 AM',
   },
 ];
-
 
 export const userProfileData = [
   {

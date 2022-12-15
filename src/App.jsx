@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import Routers from './routers/Routers';
 import { Footer } from './components/index';
 import { setCredentials } from './features/auth/authSlice';
+import FolderModal from './components/Modal/FolderModal';
 
 function App() {
   const [isLoading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ function App() {
   }
   return (
     <div>
+      <FolderModal />
       <Routers />
       <Footer />
     </div>

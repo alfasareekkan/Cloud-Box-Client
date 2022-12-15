@@ -2,12 +2,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setCredentials, logOut } from '../../features/auth/authSlice';
 
-
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:4000',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
+    const { token } = getState().auth;
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
@@ -37,5 +36,5 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReAuth,
-  endpoints: builder => ({}),
+  endpoints: () => ({}),
 });

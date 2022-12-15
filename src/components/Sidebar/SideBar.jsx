@@ -1,7 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { SiShopware } from 'react-icons/si';
 import { MdOutlineCancel } from 'react-icons/md';
 import { BsCloud } from 'react-icons/bs';
@@ -12,10 +12,12 @@ import CreateButton from './SidebarElements/CreateButton';
 import DashboardILinks from './SidebarElements/DashboardILinks';
 import StorageSize from './SidebarElements/StorageSize';
 import BuyNow from './SidebarElements/BuyNow';
+import CreateMenu from '../Menu/CreateMenu';
 
 function SideBar() {
   const activeMenu = useSelector((state) => state.sideBar.menu);
-  console.log(activeMenu);
+  const createMenu = useSelector((state) => state.createMenu.createMenu);
+
   const dispatch = useDispatch();
 
   return (
@@ -40,10 +42,12 @@ function SideBar() {
             content="Menu"
             position="BottomCenter"
           >
-            <button type="button" onClick={() => {dispatch(setSidebar(!activeMenu)) }} className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden">
+            <button type="button" onClick={() => { dispatch(setSidebar(!activeMenu)); }} className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden">
               <MdOutlineCancel />
 
             </button>
+            {createMenu && <CreateMenu />}
+
           </TooltipComponent>
 
         </div>
@@ -60,13 +64,13 @@ function SideBar() {
           </p>
           <p className="ml-3">Storage</p>
 
-                  </div>
-                  <div className="mt-5 m-3" >
-                      <StorageSize />
-                  </div>
-                  <div className="mt-5  flex justify-center ">
-                      <BuyNow/>
-                  </div>
+        </div>
+        <div className="mt-5 m-3">
+          <StorageSize />
+        </div>
+        <div className="mt-5  flex justify-center ">
+          <BuyNow />
+        </div>
 
       </>
       )}

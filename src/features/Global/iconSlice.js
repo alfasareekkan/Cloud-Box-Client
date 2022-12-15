@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const iconSlice = createSlice({
@@ -5,17 +6,14 @@ const iconSlice = createSlice({
   initialState: { notification: false, userProfile: false },
   reducers: {
     setNotification: (state, action) => {
+      state.notification = action.payload;
+      state.userProfile = false;
+    },
+    setUserProfile: (state, action) => {
       // eslint-disable-next-line no-param-reassign
-          state.notification = action.payload;
-          state.userProfile = false;
-          
-      },
-      setUserProfile:(state, action) => {
-        // eslint-disable-next-line no-param-reassign
-            state.notification = false;
-            state.userProfile = action.payload;
-            
-        },
+      state.notification = false;
+      state.userProfile = action.payload;
+    },
   },
 
 });

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import { setSidebar } from '../../features/Global/sidebarSlice';
-
 import {
-  Button, DashNavBar, Footer, Header, Notification, SideBar, UserProfile, FolderTree,
+
+  DashNavBar,
+  SideBar,
+  FolderTree,
 } from '../../components/index';
 import './DashBoard.css';
 import MyDrive from '../MyDrive';
 
 function Dashboard() {
   const activeMenu = useSelector((state) => state.sideBar.menu);
-  const dispatch = useDispatch();
   return (
     <div>
       <div className="flex relative dark:bg-main-dark-bg">
@@ -28,6 +28,7 @@ function Dashboard() {
             </button>
           </TooltipComponent>
         </div>
+
         {activeMenu ? (
           <div
             className="w-72 fixed sidebar
@@ -42,7 +43,6 @@ function Dashboard() {
                   "
           >
             <SideBar />
-
           </div>
         )}
         <div
@@ -54,16 +54,12 @@ function Dashboard() {
             <DashNavBar />
             <div className="flex ">
               <FolderTree />
-
             </div>
           </div>
           <div className="bg-[#f6f8fa]">
-
             <MyDrive />
           </div>
-
         </div>
-
       </div>
     </div>
   );

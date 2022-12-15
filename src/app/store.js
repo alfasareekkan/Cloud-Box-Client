@@ -4,6 +4,8 @@ import { apiSlice } from './api/apiSlice';
 import authReducer from '../features/auth/authSlice';
 import SidebarReducer from '../features/Global/sidebarSlice';
 import iconReducer from '../features/Global/iconSlice';
+import createMenuReducer from '../features/Global/menuSlice';
+import modalReducer from '../features/Global/modalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     auth: authReducer,
     sideBar: SidebarReducer,
     icon: iconReducer,
+    createMenu: createMenuReducer,
+    modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
