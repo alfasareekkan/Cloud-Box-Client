@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -9,6 +12,7 @@ import { setNotification, setUserProfile } from '../../features/Global/iconSlice
 import avatar from '../../assets/avatar.jpg';
 import { UserProfile, Notification } from '../index';
 import './NavBar.css';
+import { setCreateMenu } from '../../features/Global/menuSlice';
 
 export function NavButton({
   title, customFun, color, icon, dotColor,
@@ -35,7 +39,7 @@ function DashNavBar() {
     <div className="flex justify-between p-2 md:mx-6 relative ">
       <NavButton
         title="Menu"
-        customFun={() => dispatch(setSidebar(!activeMenu))}
+        customFun={() => dispatch(setSidebar(!activeMenu, dispatch(setCreateMenu(false))))}
         color="#9fa2f6"
         icon={<AiOutlineMenu />}
       />

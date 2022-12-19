@@ -22,7 +22,7 @@ function Modal({
       } fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm  justify-center items-center z-[1000000]`}
     >
       <div
-        className={active ? 'opacity-100 w-48 h-48 bg-red-600' : ' opacity-0'}
+        className={active ? 'opacity-100 w-80 h-40 bg-white rounded-md' : ' opacity-0'}
       >
         {children}
         <CloseButton closeModal={closeActive} />

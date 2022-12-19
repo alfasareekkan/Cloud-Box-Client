@@ -7,6 +7,7 @@ import { MdOutlineCancel } from 'react-icons/md';
 import { BsCloud } from 'react-icons/bs';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { setSidebar } from '../../features/Global/sidebarSlice';
+import { setCreateMenu } from '../../features/Global/menuSlice';
 import logText from '../../assets/logoText.png';
 import CreateButton from './SidebarElements/CreateButton';
 import DashboardILinks from './SidebarElements/DashboardILinks';
@@ -42,7 +43,14 @@ function SideBar() {
             content="Menu"
             position="BottomCenter"
           >
-            <button type="button" onClick={() => { dispatch(setSidebar(!activeMenu)); }} className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden">
+            <button
+              type="button"
+              onClick={() => {
+                dispatch(setSidebar(!activeMenu));
+                dispatch(setCreateMenu(false));
+              }}
+              className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
+            >
               <MdOutlineCancel />
 
             </button>

@@ -5,8 +5,11 @@ import Routers from './routers/Routers';
 import { Footer } from './components/index';
 import { setCredentials } from './features/auth/authSlice';
 import FolderModal from './components/Modal/FolderModal';
+// import {useFolder} from './hooks/useFolder'
 
 function App() {
+  // const folderState = useFolder()
+  // console.log(folderState);
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const cookie = new Cookies();
