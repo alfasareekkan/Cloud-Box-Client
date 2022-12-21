@@ -21,6 +21,8 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
+
+
   const dispatch = useDispatch();
   const cookies = new Cookies();
   // eslint-disable-next-line no-unused-vars
@@ -43,7 +45,7 @@ function LoginPage() {
       dispatch(setCredentials({ ...userData, user }));
       setUser('');
       setPwd('');
-      navigate('/dashboard');
+      navigate('/dashboard/v1/myDrive');
     } catch (errors) {
       console.log(errors);
       // if (!errors?.response) {

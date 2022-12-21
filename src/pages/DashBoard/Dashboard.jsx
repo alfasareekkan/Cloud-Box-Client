@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import {
@@ -57,7 +58,8 @@ function Dashboard() {
             </div>
           </div>
           <div className="bg-[#f6f8fa]">
-            <MyDrive />
+            {/* <MyDrive /> */}
+            <Outlet/>
           </div>
         </div>
       </div>

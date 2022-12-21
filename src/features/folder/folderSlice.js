@@ -8,6 +8,7 @@ const folderSlice = createSlice({
     folder: null,
     childFolders: [],
     childFiles: [],
+    level: 1,
 
   },
   reducers: {
@@ -16,13 +17,28 @@ const folderSlice = createSlice({
       state.folder = action.folder;
     },
     updateFolder: (state, action) => {
-      state = {
-        ...state,
-      };
-      state.folder = action.folder;
+      state.folder = action.payload.folderName;
+      state.folderId = action.payload._id;
+      state.childFolders = [];
+      state.level = action.payload.folderLevel + 1;
+      console.log(state,'😢😢😢');
     },
+    updateChildFolders: (state, action) => {
+      console.log(action.payload);
+      state.childFolders.push(action.payload);
+    },
+    insertChildFolders: (state, action) => {
+      console.log();
+      console.log(action);
+
+      state.childFolders = [...state.childFolders, ...action.payload];
+      console.log(state,'❤️❤️❤️');
+    },
+
     // default: (state) => state,
   },
 });
-export const { selectFolder, updateFolder } = folderSlice.actions;
+export const {
+  selectFolder, updateFolder, updateChildFolders, insertChildFolders,
+} = folderSlice.actions;
 export default folderSlice.reducer;

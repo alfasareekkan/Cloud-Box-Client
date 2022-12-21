@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage';
 import SignUpPage from '../pages/SignUpPage';
 import Dashboard from '../pages/DashBoard/Dashboard';
 import RequireAuth from '../features/auth/RequireAuth';
+import MyDrive from '../pages/MyDrive';
 
 function Routers() {
   return (
@@ -13,14 +14,14 @@ function Routers() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       {/* protected route */}
-      <Route
-        path="/dashboard"
-        element={(
-          // <RequireAuth>
-            <Dashboard />
-          // </RequireAuth>
-)}
-      />
+      <Route path="/dashboard" element={<RequireAuth />}>
+        <Route path="v1" element={<Dashboard />}>
+          <Route path="myDrive" element={<MyDrive />} />
+          <Route path=":id" element={<MyDrive />} />
+
+        </Route>
+
+      </Route>
 
     </Routes>
   );

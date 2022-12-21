@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate ,Outlet} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCurrentToken } from './authSlice';
 
@@ -10,7 +10,7 @@ function RequireAuth({ children }) {
 
   // eslint-disable-next-line react/jsx-filename-extension
   return (
-    token ? children : <Navigate to="/login" state={{ from: location }} replace />
+    token ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />
   );
 }
 

@@ -3,10 +3,13 @@ import React,{ useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeFolderCreation } from '../../features/Global/modalSlice'
 import { useCreateFolderMutation } from '../../features/folder/folderApiSlice'
-import {useFolder} from '../../hooks/useFolder'
+import { updateChildFolders } from '../../features/folder/folderSlice'
+import {setCreateMenu} from '../../features/Global/menuSlice'
+// import {useFolder} from '../../hooks/useFolder'
 
 
 import Modal from './Modal'
+import PreLoader from '../PreLoader/PreLoader'
 
 function FolderModal() {
     const inputRef=useRef()
@@ -14,19 +17,25 @@ function FolderModal() {
         inputRef.current.focus()
     },[])
     const dispatch = useDispatch()
+    const user = useSelector(state => state.auth.token)
     const folderCreationOverlay = useSelector((state) => state.modal.folderCreationModal)
-    const folderId=useSelector((state)=>state.folder.folderId)
+    const folder=useSelector((state)=>state.folder)
     const [createFolder,{isLoading}]=useCreateFolderMutation()
-    const handleSubmit =async () => {
+    const handleSubmit = async () => {
       let res=  await createFolder({
             "folderName":inputRef.current.value,
-            "userId":"639ab2ecbcf3d43c3862d775",
-            "folderId":folderId
+            "userId":user,
+          "folderId": folder.folderId,
+            "level":folder.level
           
       }).unwrap()
-   
- }
-  return (
+        dispatch(updateChildFolders(res))
+        dispatch(closeFolderCreation())
+        dispatch(setCreateMenu(false))
+    }
+    const content = isLoading ? (
+        <PreLoader/>
+    ):(
       <Modal id="folderCreationContainer" active={folderCreationOverlay} closeActive={()=>{dispatch(closeFolderCreation())}}> 
           <div className='flex flex-col mx-5 my-6'>
               <h1 className='text-xl font-medium text-gray-900'>New Folder</h1>
@@ -39,7 +48,8 @@ function FolderModal() {
               
           </div>
     </ Modal>
-  )
+    )
+    return content
 }
 
 export default FolderModal
