@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -24,26 +25,40 @@ const folderSlice = createSlice({
       state.level = action.payload.folderLevel + 1;
     },
     updateChildFolders: (state, action) => {
-     
       state.childFolders.push(action.payload);
     },
     insertChildFolders: (state, action) => {
-
-      state.childFolders = [...state.childFolders, ...action.payload];
+      state.childFolders = [...action.payload];
     },
-    updatePath: (state, action) => {
-      console.log(action.payload);
+    insertPath: (state, action) => {
       const data = state.path.find((path) => path.id === action.payload._id);
       if (!data) {
         state.path.push({ path: action.payload.folderName, id: action.payload._id });
       }
-      console.log(state.path,"23");
+    },
+    updatePath: (state, action) => {
+      const index = state.path.findIndex((path) => path.id === action.payload.id);
+      console.log(index);
+      const newPaths = state.path.slice(0, index + 1);
+      if (index === 0) {
+        // state
+        state.folder = null;
+        state.folderId = null;
+        state.level = 1;
+      }
+      else {
+        state.folder = action.payload.path;
+      state.folderId = action.payload.id;
+      }
+      state.path = newPaths;
+      
+      state.childFolders=[]
     },
 
     // default: (state) => state,
   },
 });
 export const {
-  selectFolder, updateFolder, updateChildFolders, insertChildFolders, updatePath,
+  selectFolder, updateFolder, updateChildFolders, insertChildFolders, updatePath, insertPath,
 } = folderSlice.actions;
 export default folderSlice.reducer;

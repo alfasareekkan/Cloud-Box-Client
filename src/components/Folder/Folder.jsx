@@ -2,13 +2,13 @@ import React from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import { BsFillFolderFill } from 'react-icons/bs';
 import { useSelector,useDispatch } from 'react-redux';
-import { updatePath } from '../../features/folder/folderSlice';
+import { insertPath } from '../../features/folder/folderSlice';
 
 export default function Folder(props) {
   const navigate = useNavigate();
   const dispatch=useDispatch()
   const handleClick = () => {
-    dispatch(updatePath(props.folder))
+    dispatch(insertPath(props.folder))
     navigate(`/dashboard/v1/${props?.folder._id}`,{replace:true})
   }
   return (
