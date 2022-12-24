@@ -1,9 +1,10 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { setCredentials } from '../features/auth/authSlice';
-import { useSignupMutation } from '../features/auth/authApiSlice';
+import { useSignupMutation, useGoogleSignUPMutation } from '../features/auth/authApiSlice';
 import Navbar from '../components/Navbar';
 import cloudLogin from '../assets/cloudLogin.jpg';
 import LogoText from '../assets/logoText.png';
@@ -20,11 +21,28 @@ function SignUpPage() {
   const navigate = useNavigate();
 
   const [signup, { isLoading }] = useSignupMutation();
+  const [googleSignUP,{isLoading:isGoogleSignUpLoading}]=useGoogleSignUPMutation()
   const dispatch = useDispatch();
+  function handleCallbackResponse(res) {
+    console.log(res);
+    const googleRes = googleSignUP(res.credential);
+  }
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
+
+  useEffect(() => {
+    /*global google*/
+    google.accounts.id.initialize({
+      client_id: "24354248382-7hun00kkq9vbrbp0i2okgsv67ah20fp1.apps.googleusercontent.com",
+      callback:handleCallbackResponse
+    })
+    google.accounts.id.renderButton(
+      document.getElementById('signUpGoogle'),
+      {theme:"outline",size:"large"}
+    )
+  },[])
   const handleSubmitSignup = async (e) => {
     e.preventDefault();
     try {
@@ -40,13 +58,13 @@ function SignUpPage() {
     <div className="">
       <Navbar data={{ auth: 'sign in', dir: '/login' }} />
       <div className="flex w-full flex-col md:flex-row items-center">
-        <div className="w-1/2 md:w-full ">
+        <div className="w-full md:w-1/2 hidden md:block">
           <img src={cloudLogin} alt="" />
         </div>
-        <div className="w-1/2 md:w-full">
-          <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full md:w-1/2 ">
+          <div className="flex min-h-full w-full   justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-md space-y-8">
-              <div>
+              <div className="mt-5">
                 <img
                   className="mx-auto h-20 w-auto"
                   src={LogoText}
@@ -56,11 +74,11 @@ function SignUpPage() {
                   Create account
                 </h2>
               </div>
-              <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmitSignup}>
+              <form className="mt-8 space-y-6 w-full" action="#" method="POST" onSubmit={handleSubmitSignup}>
                 <input type="hidden" name="remember" defaultValue="true" />
-                <div className="-space-y-px rounded-md shadow-sm">
-                  <div>
-                    <div>
+                <div className="-space-y-px w-full rounded-md shadow-sm">
+                  <div className='w-full'>
+                    <div className='w-full'>
                       <label htmlFor="first-name" className="sr-only">
                         First Name
                       </label>
@@ -129,31 +147,6 @@ function SignUpPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                      Remember me
-                    </label>
-                  </div>
-                  {/* {!authState &&<div className="text-sm">
-                <a href="#" className="font-medium text-[#8F92F6] hover:text-[#8F92F6]">
-                  Forgot your password?
-                </a>
-              </div>} */}
-
-                  {/* <div className="text-sm">
-                <a href="#" className="font-medium text-[#8F92F6] hover:text-[#8F92F6]">
-                  Forgot your password?
-                </a>
-              </div> */}
-                </div>
-
                 <div>
                   <button
                     type="submit"
@@ -167,6 +160,15 @@ function SignUpPage() {
                     </span>
                     Sign Up
                   </button>
+                </div>
+                <div className='w-full'>
+                  <div>
+                    <p>or</p>
+                    <div id='signUpGoogle'>
+                      
+                     </div>
+                  </div>
+                  
                 </div>
               </form>
             </div>

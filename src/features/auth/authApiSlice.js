@@ -16,7 +16,23 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
     }),
+    googleSignUP: builder.mutation({
+      query: (credentials) => ({
+        url: '/google-signup',
+        method: 'POST',
+        body: { credentials },
+      }),
+    }),
+    googleLogin: builder.mutation({
+      query: (credentials) => ({
+        url: '/google-login',
+        method: 'POST',
+        body: { credentials },
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useSignupMutation } = authApiSlice;
+export const {
+  useLoginMutation, useSignupMutation, useGoogleLoginMutation, useGoogleSignUPMutation,
+} = authApiSlice;
