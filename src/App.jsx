@@ -37,9 +37,7 @@ function App() {
   async function getToken() {
    try {
      const refreshToken = await getRefreshToken().unwrap()
-     console.log(refreshToken);
      localStorage.setItem('refreshToken', refreshToken.refreshToken);
-     console.log(refreshToken);
     dispatch(setCredentials({ token: refreshToken }));
 
     
