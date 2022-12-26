@@ -32,7 +32,7 @@ function DashNavBar() {
   const activeMenu = useSelector((state) => state.sideBar.menu);
   const notification = useSelector((state) => state.icon.notification);
   const userProfile = useSelector((state) => state.icon.userProfile);
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   return (
@@ -60,7 +60,7 @@ function DashNavBar() {
             <p>
               <span className="text-gray-400 text-14">Hi, </span>
               {' '}
-              <span className="text-gray-400 font-bold ml-1 text-14 ">{ user}</span>
+              {/* <span className="text-gray-400 font-bold ml-1 text-14 ">{ user}</span> */}
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>

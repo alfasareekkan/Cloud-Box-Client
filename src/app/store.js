@@ -12,6 +12,7 @@ import createMenuReducer from '../features/Global/menuSlice';
 import modalReducer from '../features/Global/modalSlice';
 import { driveApiSlice } from './api/driveApiSlice';
 import folderReducer from '../features/folder/folderSlice';
+import { authApiSlice } from '../features/auth/authApiSlice';
 
 const persistConfig = {
   key: 'root',
@@ -37,7 +38,7 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
-  }).concat([driveApiSlice.middleware]),
+  }).concat([driveApiSlice.middleware, authApiSlice.middleware]),
   devTools: true,
 });
 export const persistor = persistStore(store);

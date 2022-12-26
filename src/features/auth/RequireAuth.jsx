@@ -5,7 +5,7 @@ import { selectCurrentToken } from './authSlice';
 
 // eslint-disable-next-line react/prop-types
 function RequireAuth({ children }) {
-  const token = useSelector(selectCurrentToken);
+  const token = localStorage.getItem('accessToken');
   const location = useLocation();
 
   // eslint-disable-next-line react/jsx-filename-extension

@@ -35,7 +35,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 };
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithReAuth,
-  reducerPath: 'authApi',
+  baseQuery,
+
   endpoints: () => ({}),
 });

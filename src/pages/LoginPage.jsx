@@ -3,9 +3,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
+import ClipLoader from 'react-spinners/ClipLoader';
+import toast, { Toaster } from 'react-hot-toast';
+
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import { setCredentials } from '../features/auth/authSlice';
-import { useLoginMutation } from '../features/auth/authApiSlice';
+import { useLoginMutation, useGoogleSignUPMutation } from '../features/auth/authApiSlice';
 import Navbar from '../components/Navbar';
 import PreLoader from '../components/PreLoader/PreLoader';
 // eslint-disable-next-line import/no-unresolved
@@ -15,71 +18,93 @@ import LogoText from '../assets/logoText.png';
 function LoginPage() {
   const userRef = useRef();
   const errRef = useRef();
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
-
+  const [googleSignUP, { isLoading: isGoogleSignUpLoading }] = useGoogleSignUPMutation();
 
   const dispatch = useDispatch();
   const cookies = new Cookies();
+  async function handleCallbackResponse(res) {
+    try {
+      const googleRes = await googleSignUP(res.credential);
+      if (googleRes.data) {
+        localStorage.setItem('accessToken', googleRes.data.accessToken);
+        dispatch(setCredentials({ user: googleRes.data, accessToken: googleRes.data.accessToken }));
+      }
+    } catch (error) {
+      // toast.error("server error");
+    }
+  }
   // eslint-disable-next-line no-unused-vars
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
   useEffect(() => {
-    setErrMsg('');
-  }, [user, pwd]);
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        '24354248382-7hun00kkq9vbrbp0i2okgsv67ah20fp1.apps.googleusercontent.com',
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById('signUpGoogle'), {
+      theme: 'outline',
+      size: 'large',
+      text: 'continue_with',
+    });
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userData = await login({ user, pwd }).unwrap();
-      console.log(userData);
-      cookies.set('jwt', userData.newRefreshToken, {
-        path: '/', httpOnly: true, secure: true, sameSite: 'none', maxAge: 24 * 60 * 60 * 1000,
-      });
+      const userData = await login({ email, password }).unwrap();
 
-      dispatch(setCredentials({ ...userData, user }));
-      setUser('');
-      setPwd('');
+      // cookies.set('jwt', userData.newRefreshToken, {
+      //   path: '/', httpOnly: true, secure: true, sameSite: 'none', maxAge: 24 * 60 * 60 * 1000,
+      // });
+      dispatch(setCredentials({
+        user: userData.user, accessToken: userData.accessToken,
+      }));
+      localStorage.setItem('accessToken', userData.accessToken);
+      localStorage.setItem('refreshToken', userData.refreshToken);
+      setEmail('');
+      setPassword('')
+      console.log(userData);
       navigate('/dashboard/v1/myDrive');
+      console.log(userData);
     } catch (errors) {
-      console.log(errors);
-      // if (!errors?.response) {
-      //   setErrMsg('incorrect password');
-      // } else
-      if (errors.originalStatus === 400) {
-        setErrMsg('Missing Username or Password');
-      } else if (errors.originalStatus === 401) {
-        setErrMsg('Unauthorized');
-      } else {
-        setErrMsg('Login Failed');
+      if (errors.status === 400) {
+        toast.error(`${errors.data.errors.email} ${errors.data.errors.password}`);
       }
-      errRef.current.focus();
     }
   };
 
-  const handleUserInput = (e) => setUser(e.target.value);
-  const handlePwdInput = (e) => setPwd(e.target.value);
+  const handleUserInput = (e) => setEmail(e.target.value);
+  const handlePwdInput = (e) => setPassword(e.target.value);
 
-  const content = isLoading ? (
+  const content = isGoogleSignUpLoading ? (
     // <h1>Loading.....</h1>
     <PreLoader />
   ) : (
     <div className="">
       <Navbar data={{ auth: 'sign up', dir: '/signup' }} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="flex w-full flex-col md:flex-row items-center">
-        <div className="w-1/2 md:w-full ">
+        <div className="w-full md:w-1/2 hidden md:block ">
           <img src={cloudLogin} alt="" />
         </div>
-        <div className="w-1/2 md:w-full">
+        <div className="w-full md:w-1/2">
           {/* <Login data={{status:'Sign in',state:false,auth: 'Sign in'}}/> */}
-          <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <div className="flex min-h-full w-full   justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-md space-y-8">
-              <div>
+              <div className="mt-5">
                 <img
                   className="mx-auto h-20 w-auto"
                   src={LogoText}
@@ -100,8 +125,8 @@ function LoginPage() {
                 onSubmit={handleSubmit}
               >
                 <input type="hidden" name="remember" defaultValue="true" />
-                <div className="-space-y-px rounded-md shadow-sm">
-                  <div>
+                <div className=" -space-y-px rounded-md shadow-sm">
+                  <div className="w-full">
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label htmlFor="email-address" className="sr-only">
                       Email address
@@ -112,7 +137,7 @@ function LoginPage() {
                       type="email"
                       autoComplete="email"
                       ref={userRef}
-                      value={user}
+                      value={email}
                       onChange={handleUserInput}
                       required
                       className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -131,7 +156,7 @@ function LoginPage() {
                       autoComplete="current-password"
                       required
                       onChange={handlePwdInput}
-                      value={pwd}
+                      value={password}
                       className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Password"
                     />
@@ -166,19 +191,39 @@ function LoginPage() {
                 </div>
 
                 <div>
-                  <button
-                    type="submit"
-                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-[#8F92F6] py-2 px-4 text-sm font-medium text-white hover:bg-[#8F92F6] focus:outline-none focus:ring-2 focus:ring-[#8F92F6] focus:ring-offset-2"
-                  >
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                      <LockClosedIcon
-                        className="h-5 w-5  group-hover:text-indigo-400"
-                        aria-hidden="true"
-                      />
-                    </span>
-                    {/* {data.auth} */}
-                    Sign in
-                  </button>
+                  {
+                      isLoading ? (
+                        <button
+                          disabled
+
+                          className="group relative flex w-full justify-center rounded-md border border-transparent bg-[#8F92F6] py-2 px-4 text-sm font-medium text-white hover:bg-[#8F92F6] focus:outline-none focus:ring-2 focus:ring-[#8F92F6] focus:ring-offset-2"
+                        >
+                          <ClipLoader color="#fff" size={22} />
+
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="group relative flex w-full justify-center rounded-md border border-transparent bg-[#8F92F6] py-2 px-4 text-sm font-medium text-white hover:bg-[#8F92F6] focus:outline-none focus:ring-2 focus:ring-[#8F92F6] focus:ring-offset-2"
+                        >
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <LockClosedIcon
+                              className="h-5 w-5  group-hover:text-indigo-400"
+                              aria-hidden="true"
+                            />
+                          </span>
+                          {/* {data.auth} */}
+                          Sign in
+                        </button>
+                      )
+                  }
+
+                </div>
+                <div className="w-full">
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="font-semibold">or</p>
+                    <div id="signUpGoogle" className="mt-5" />
+                  </div>
                 </div>
               </form>
             </div>

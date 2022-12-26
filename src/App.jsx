@@ -31,6 +31,13 @@ function App() {
     dispatch(setCredentials({ token: userToken }));
   }, []);
 
+  useEffect(() => {
+    
+  })
+  // setInterval(() => {
+  //   getAccessToken().unwrap()
+  // },2000)
+
   if (isLoading) { //
     return null;
   }

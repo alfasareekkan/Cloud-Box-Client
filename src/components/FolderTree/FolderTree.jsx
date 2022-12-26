@@ -17,7 +17,7 @@ function FolderTree() {
     <div className="ml-10">
       <Breadcrumbs aria-label="breadcrumb">
         {paths.map((path) => (
-          <p onClick={()=>handleClick(path)} color="inherit">
+          <p key={path.path} onClick={()=>handleClick(path)} color="inherit">
             {path.path}
           </p>
         ))}
