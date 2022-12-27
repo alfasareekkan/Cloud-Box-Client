@@ -38,7 +38,7 @@ const folderSlice = createSlice({
     },
     updatePath: (state, action) => {
       const index = state.path.findIndex((path) => path.id === action.payload.id);
-      console.log(index);
+      if (index === state.path.length - 1) return;
       const newPaths = state.path.slice(0, index + 1);
       if (index === 0) {
         // state

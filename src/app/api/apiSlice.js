@@ -5,10 +5,14 @@ import { setCredentials, logOut } from '../../features/auth/authSlice';
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:4000',
   credentials: 'include',
-  prepareHeaders: (headers, { getState }) => {
-    const { token } = getState().auth;
+  prepareHeaders: (headers) => {
+    const token = localStorage.getItem('refreshToken');
+    const accessToken = localStorage.getItem('accessToken');
     if (token) {
-      headers.set('authorization', `Bearer ${token}`);
+      headers.set('refreshAuthorization', `Bearer ${token}`);
+    }
+    if (accessToken) {
+      headers.set('authorization', `Bearer ${accessToken}`);
     }
     return headers;
   },

@@ -14,7 +14,7 @@ function MyDrive() {
   const { id } = useParams();
   
   const [getAllFolders, { isLoading }] = useGetAllFoldersMutation();
-  const user = useSelector((state) => state.auth.token);
+  const user = localStorage.getItem('refreshToken')
   async function fetchFolders() {
     const folders = await getAllFolders({
       user,
