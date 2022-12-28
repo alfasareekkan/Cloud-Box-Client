@@ -5,6 +5,7 @@ const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     folderCreationModal: false,
+    fileCreationModal: false,
   },
   reducers: {
     openFolderCreation: (state) => {
@@ -14,8 +15,18 @@ const modalSlice = createSlice({
     closeFolderCreation: (state) => {
       state.folderCreationModal = false;
     },
+    openFileCreation: (state) => {
+      if (state.fileCreationModal) state.fileCreationModal = false;
+      state.fileCreationModal = true;
+    },
+    closeFileCreation: (state) => {
+      state.fileCreationModal = false;
+    },
   },
+
 });
 
-export const { openFolderCreation, closeFolderCreation } = modalSlice.actions;
+export const {
+  openFolderCreation, closeFolderCreation, openFileCreation, closeFileCreation
+} = modalSlice.actions;
 export default modalSlice.reducer;

@@ -5,7 +5,8 @@ import Routers from './routers/Routers';
 import { Footer } from './components/index';
 import { setCredentials } from './features/auth/authSlice';
 import FolderModal from './components/Modal/FolderModal';
-import {useGetRefreshTokenMutation} from './features/auth/authApiSlice'
+import FileModal from './components/Modal/FileModal';
+import { useGetRefreshTokenMutation } from './features/auth/authApiSlice';
 // import {useFolder} from './hooks/useFolder'
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
   const cookie = new Cookies();
   const userToken = cookie.get('jwt');
-  const [getRefreshToken]=useGetRefreshTokenMutation()
+  const [getRefreshToken] = useGetRefreshTokenMutation();
 
   function someRequest() { // Simulates a request; makes a "promise" that'll run for 2.5 seconds
     // eslint-disable-next-line no-promise-executor-return
@@ -56,6 +57,7 @@ function App() {
   return (
     <div>
       <FolderModal />
+      <FileModal />
       <Routers />
       <Footer />
     </div>
