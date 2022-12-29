@@ -13,12 +13,6 @@ function FileModal() {
   const [file, setFile] = useState(null);
   const [uploadedFile, { isLoading }] = useUploadFileMutation();
   const handleChange = (event) => {
-    // console.log(event);
-    // if (event.target.files.length > 0) {
-    //   // Set the file in the state
-    //   console.log('😒😒');
-    //   setFile(event.target.files[0]);
-    // }
     setFile(event);
   };
   const handleModalCancel = () => {
@@ -26,17 +20,10 @@ function FileModal() {
     setFile(null);
   };
   const handleUpload = () => {
-    console.log(file);
     const reader = new FileReader();
-    console.log(reader);
     reader.onload = async () => {
       const fileContents = reader.result;
       const typedArray = new Uint8Array(fileContents);
-      // body: JSON.stringify({
-      //     fileName: file.name,
-      //     fileContents: typedArray
-      //   }),
-      console.log(typedArray);
       const r = await uploadedFile({
         fileName: file.name,
         fileContents: typedArray,

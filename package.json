@@ -29,6 +29,7 @@
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
     "framer-motion": "^7.6.19",
+    "pdfjs-dist": "^3.1.81",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.8",
