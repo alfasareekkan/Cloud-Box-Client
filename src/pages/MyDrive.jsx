@@ -61,6 +61,7 @@ function MyDrive() {
           <div className=" flex flex-wrap flex-col  items-center  mb-8 sm:flex-row">
             {/* <img src="" id='preview12345678' alt="" /> */}
             <canvas id='canvas' hidden></canvas>
+            <div  id='xlsxDiv'  className='absolute -z-20'></div>
           <FileCard />
           <FileCard />
           <FileCard />
