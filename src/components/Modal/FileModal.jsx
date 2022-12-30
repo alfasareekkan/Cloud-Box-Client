@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FileUploader } from 'react-drag-drop-files';
+import pdfjsLib,{getDocument} from "pdfjs-dist";
+
 
 import Modal from './Modal';
 import { closeFileCreation } from '../../features/Global/modalSlice';
 import { useUploadFileMutation } from '../../features/file/fileApiSlice';
+import {createPreviewImage } from '../../features/file/previewImage';
 
 function FileModal() {
   const dispatch = useDispatch();
@@ -19,15 +22,19 @@ function FileModal() {
     dispatch(closeFileCreation());
     setFile(null);
   };
-  const handleUpload = () => {
+  const handleUpload = async (e) => {
+    console.log(file);
+    const previewImage = await createPreviewImage(file, e);
+    console.log(previewImage);
     const reader = new FileReader();
     reader.onload = async () => {
       const fileContents = reader.result;
       const typedArray = new Uint8Array(fileContents);
-      const r = await uploadedFile({
-        fileName: file.name,
-        fileContents: typedArray,
-      }).unwrap();
+      // const r = await uploadedFile({
+      //   fileName: file.name,
+      //   fileContents: typedArray,
+      //   previewImage,
+      // }).unwrap();
     };
     reader.readAsArrayBuffer(file);
   };

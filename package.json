@@ -29,6 +29,7 @@
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
     "framer-motion": "^7.6.19",
+    "pdf-image": "^2.0.0",
     "pdfjs-dist": "^3.1.81",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -40,7 +41,8 @@
     "react-spinners": "^0.13.7",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",

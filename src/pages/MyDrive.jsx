@@ -58,7 +58,9 @@ function MyDrive() {
       </div>
       <div className="">
         <p className="text-gray-500 text-lg cursor-pointer dark:text-gray-400">Documents</p>
-        <div className=" flex flex-wrap flex-col  items-center  mb-8 sm:flex-row">
+          <div className=" flex flex-wrap flex-col  items-center  mb-8 sm:flex-row">
+            {/* <img src="" id='preview12345678' alt="" /> */}
+            <canvas id='canvas' hidden></canvas>
           <FileCard />
           <FileCard />
           <FileCard />
