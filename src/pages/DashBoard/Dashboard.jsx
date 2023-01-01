@@ -10,7 +10,6 @@ import {
   FolderTree,
 } from '../../components/index';
 import './DashBoard.css';
-import MyDrive from '../MyDrive';
 
 function Dashboard() {
   const activeMenu = useSelector((state) => state.sideBar.menu);
@@ -59,7 +58,7 @@ function Dashboard() {
           </div>
           <div className="bg-[#f6f8fa]">
             {/* <MyDrive /> */}
-            <Outlet/>
+            <Outlet />
           </div>
         </div>
       </div>

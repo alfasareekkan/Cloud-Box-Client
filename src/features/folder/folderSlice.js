@@ -45,14 +45,13 @@ const folderSlice = createSlice({
         state.folder = null;
         state.folderId = null;
         state.level = 1;
-      }
-      else {
+      } else {
         state.folder = action.payload.path;
-      state.folderId = action.payload.id;
+        state.folderId = action.payload.id;
       }
       state.path = newPaths;
-      
-      state.childFolders=[]
+
+      state.childFolders = [];
     },
 
     // default: (state) => state,

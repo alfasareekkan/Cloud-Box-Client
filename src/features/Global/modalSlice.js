@@ -26,7 +26,8 @@ const modalSlice = createSlice({
 
 });
 
-export const {
-  openFolderCreation, closeFolderCreation, openFileCreation, closeFileCreation
-} = modalSlice.actions;
+export const
+  {
+    openFolderCreation, closeFolderCreation, openFileCreation, closeFileCreation,
+  } = modalSlice.actions;
 export default modalSlice.reducer;

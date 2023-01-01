@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Folder, FileCard } from '../components/index';
@@ -12,9 +12,9 @@ function MyDrive() {
   const folder = useSelector((state) => state.folder);
   const dispatch = useDispatch();
   const { id } = useParams();
-  
+
   const [getAllFolders, { isLoading }] = useGetAllFoldersMutation();
-  const user = localStorage.getItem('refreshToken')
+  const user = localStorage.getItem('refreshToken');
   async function fetchFolders() {
     const folders = await getAllFolders({
       user,
@@ -31,12 +31,11 @@ function MyDrive() {
         if (id === folder.childFolders[i]._id) {
           dispatch(updateFolder(folder.childFolders[i]));
           break;
-         }
-       }
+        }
+      }
     }
-  },[id])
+  }, [id]);
   useEffect(() => {
-    
     fetchFolders();
   }, [folder.folderId]);
 
@@ -58,10 +57,10 @@ function MyDrive() {
       </div>
       <div className="">
         <p className="text-gray-500 text-lg cursor-pointer dark:text-gray-400">Documents</p>
-          <div className=" flex flex-wrap flex-col  items-center  mb-8 sm:flex-row">
-            {/* <img src="" id='preview12345678' alt="" /> */}
-            <canvas id='canvas' hidden></canvas>
-            <div  id='xlsxDiv'  className='absolute -z-20'></div>
+        <div className=" flex flex-wrap flex-col  items-center  mb-8 sm:flex-row">
+          {/* <img src="" id='preview12345678' alt="" /> */}
+          <canvas id="canvas" hidden />
+          <div id="xlsxDiv" className="absolute -z-20" />
           <FileCard />
           <FileCard />
           <FileCard />

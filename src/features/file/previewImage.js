@@ -21,22 +21,23 @@ async function generatePdfPreviewImage(file) {
   //     console.log(pdfjsLib);
   PDFJS.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
-  return PDFJS.getDocument(file).promise.then(async (aa) => {
-    const page = await aa.getPage(1);
-    const viewPort = page.getViewport({ scale: 1 });
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    canvas.height = viewPort.height;
-    canvas.width = viewPort.width;
-    return page.render(
-      { canvasContext: context, viewport: viewPort },
-    ).promise.then((resolve) => {
-      const imageData = canvas.toDataURL();
-      // document.getElementById('preview12345678').src = imageData;
-      // console.log(imageData);
-      return imageData;
+  return PDFJS.getDocument(file).promise
+    .then(async (aa) => {
+      const page = await aa.getPage(1);
+      const viewPort = page.getViewport({ scale: 1 });
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      canvas.height = viewPort.height;
+      canvas.width = viewPort.width;
+      return page.render(
+        { canvasContext: context, viewport: viewPort },
+      ).promise.then(() => {
+        const imageData = canvas.toDataURL();
+        // document.getElementById('preview12345678').src = imageData;
+        // console.log(imageData);
+        return imageData;
+      });
     });
-  });
   //
 }
 
@@ -46,7 +47,7 @@ export const createPreviewImage = (file) => {
     reader.onload = () => file;
     reader.readAsDataURL(file);
   } else if (file.type === 'application/pdf') {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const reader = new FileReader();
       let previewImage;
       reader.onload = async (e) => {
