@@ -2,19 +2,21 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FileUploader } from 'react-drag-drop-files';
-import pdfjsLib,{getDocument} from "pdfjs-dist";
-
+import pdfjsLib, { getDocument } from 'pdfjs-dist';
 
 import Modal from './Modal';
 import { closeFileCreation } from '../../features/Global/modalSlice';
 import { useUploadFileMutation } from '../../features/file/fileApiSlice';
-import {createPreviewImage } from '../../features/file/previewImage';
+import { createPreviewImage } from '../../features/file/previewImage';
+import { pushFile } from '../../features/folder/folderSlice';
 
 function FileModal() {
   const dispatch = useDispatch();
   const fileOverLay = useSelector((state) => state.modal.fileCreationModal);
   const [file, setFile] = useState(null);
   const [uploadedFile, { isLoading }] = useUploadFileMutation();
+  const folder = useSelector((state) => state.folder);
+
   const handleChange = (event) => {
     setFile(event);
   };
@@ -23,19 +25,29 @@ function FileModal() {
     setFile(null);
   };
   const handleUpload = async (e) => {
-    console.log(file);
     const previewImage = await createPreviewImage(file, e);
-    console.log(previewImage);
+    console.log(file);
     const reader = new FileReader();
     reader.onload = async () => {
       const fileContents = reader.result;
       const typedArray = new Uint8Array(fileContents);
-      // const r = await uploadedFile({
-      //   fileName: file.name,
-      //   fileContents: typedArray,
-      //   previewImage,
-      // }).unwrap();
+      const hash = await window.crypto.subtle.digest('SHA-256', typedArray);
+      const fileHash = Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      const r = await uploadedFile({
+        folderId: folder.folderId,
+        level: folder.level,
+        fileName: file.name,
+        fileContents: typedArray,
+        previewImage,
+        fileHash,
+        fileSize: file.size,
+        fileType: file.type,
+      }).unwrap();
+      setFile(null);
+      dispatch(pushFile(r));
+      console.log(r);
     };
+    
     reader.readAsArrayBuffer(file);
   };
   return (
