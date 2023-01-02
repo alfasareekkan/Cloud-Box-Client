@@ -1,11 +1,11 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Folder, FileCard } from '../components/index';
 import { useGetAllFoldersMutation } from '../features/folder/folderApiSlice';
-import { insertChildFolders, updateFolder } from '../features/folder/folderSlice';
+import { insertChildFolders, updateFolder, pushFile } from '../features/folder/folderSlice';
 import PreLoader from '../components/PreLoader/PreLoader';
 
 function MyDrive() {
@@ -61,15 +61,13 @@ function MyDrive() {
           {/* <img src="" id='preview12345678' alt="" /> */}
           <canvas id="canvas" hidden />
           <div id="xlsxDiv" className="absolute -z-20" />
-          <FileCard />
-          <FileCard />
-          <FileCard />
-          <FileCard />
-          <FileCard />
-          <FileCard />
-          <FileCard />
+          {
+              folder.childFiles?.map((value) => (
+                // eslint-disable-next-line no-underscore-dangle
 
-          <FileCard />
+                <FileCard key={value._id} file={value} />
+              ))
+            }
 
         </div>
       </div>
