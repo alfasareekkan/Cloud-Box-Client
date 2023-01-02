@@ -30,11 +30,11 @@ function FileModal() {
     reader.onload = async () => {
       const fileContents = reader.result;
       const typedArray = new Uint8Array(fileContents);
-      const r = await uploadedFile({
-        fileName: file.name,
-        fileContents: typedArray,
-        previewImage,
-      }).unwrap();
+      // const r = await uploadedFile({
+      //   fileName: file.name,
+      //   fileContents: typedArray,
+      //   previewImage,
+      // }).unwrap();
     };
     reader.readAsArrayBuffer(file);
   };

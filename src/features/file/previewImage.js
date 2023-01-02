@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-expressions */
 import * as PDFJS from 'pdfjs-dist';
 import * as XLSX from 'xlsx';
+import * as docx from 'docx';
+import { Document } from 'docx';
 import html2canvas from 'html2canvas';
 
 /* eslint-disable import/prefer-default-export */
@@ -71,6 +73,37 @@ export const createPreviewImage = (file) => {
         resolve(imageData);
       };
       reader.readAsBinaryString(file);
+    });
+  } else if (file.type === 'application/msword') {
+    return new Promise((resolve) => {
+      // const doc = await docx.parse(file);
+      // const docText = doc.getFullText();
+      // const pages = docText.split('\n');
+      // const pageText = pages[0];
+      // const div = document.getElementById('xlsxDiv');
+      // div.innerHTML = pageText;
+      // const canvas = await html2canvas(div);
+      // const imageData = canvas.toDataURL();
+      // document.getElementById('xlsxDiv').style.display = 'none';
+      // resolve(imageData);
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const data = e.target.result;
+        console.log(data);
+        // const docaa = await docx.parse(data);
+
+        const doc = new docx.Document([data]);
+        const content = doc.getFullText();
+        const pages = content.split('\n');
+        const pageText = pages[0];
+        const container = document.createElement('xlsxDiv');
+        container.innerHTML = pageText;
+        // Extract the image data from the container element
+        const imageData = getImageData(container);
+        container.innerHTML = '';
+        resolve(imageData);
+      };
+      reader.readAsArrayBuffer(file);
     });
   }
 };
