@@ -15,7 +15,7 @@ function App() {
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const cookie = new Cookies();
-  const userToken = cookie.get('jwt');
+  const userToken = localStorage.getItem('refreshToken');
   const [getRefreshToken] = useGetRefreshTokenMutation();
 
   function someRequest() { // Simulates a request; makes a "promise" that'll run for 2.5 seconds
@@ -38,6 +38,9 @@ function App() {
      const refreshToken = await getRefreshToken().unwrap()
      console.log(refreshToken);
      localStorage.setItem('refreshToken', refreshToken.refreshToken);
+     console.log(refreshToken);
+    dispatch(setCredentials({ token: refreshToken }));
+
     
    } catch (error) {
      localStorage.removeItem('refreshToken');

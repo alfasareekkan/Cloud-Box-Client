@@ -16,7 +16,7 @@ function FolderModal() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.token)
     const folderCreationOverlay = useSelector((state) => state.modal.folderCreationModal)
-    const folder=useSelector((state)=>state.folder)
+    const folder=useSelector((state)=>state.folder) 
     const [createFolder,{isLoading}]=useCreateFolderMutation()
     const handleSubmit = async () => {
         let res=  await createFolder({
