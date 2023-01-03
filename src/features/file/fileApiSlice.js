@@ -9,7 +9,15 @@ const fileApiSlice = driveApiSlice.injectEndpoints({
         body: { ...credentials },
       }),
     }),
+    getFileSize: builder.query({
+      query: () => ({
+        url: 'files/get-file-size',
+        method: 'GET',
+      
+        // body: { ...credentials },
+      }),
+    }),
   }),
 });
 
-export const { useUploadFileMutation } = fileApiSlice;
+export const { useUploadFileMutation, useGetFileSizeQuery } = fileApiSlice;

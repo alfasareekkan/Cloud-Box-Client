@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FileUploader } from 'react-drag-drop-files';
 import pdfjsLib, { getDocument } from 'pdfjs-dist';
+import CryptoJS from 'crypto-js';
 
 import ClipLoader from 'react-spinners/ClipLoader';
 import Modal from './Modal';
@@ -17,7 +18,10 @@ function FileModal() {
   const [file, setFile] = useState(null);
   const [uploadedFile, { isLoading }] = useUploadFileMutation();
   const folder = useSelector((state) => state.folder);
-
+  function encryptFile(file) {
+    const encrypted = CryptoJS.AES.encrypt(file, '12345') 
+    return encrypted;
+ }
   const handleChange = (event) => {
     setFile(event);
   };
@@ -25,6 +29,7 @@ function FileModal() {
     dispatch(closeFileCreation());
     setFile(null);
   };
+
   const handleUpload = async (e) => {
     document.getElementById('root').style.pointerEvents = 'none';
     const previewImage = await createPreviewImage(file, e);
@@ -32,26 +37,31 @@ function FileModal() {
     const reader = new FileReader();
     reader.onload = async () => {
       const fileContents = reader.result;
-      const typedArray = new Uint8Array(fileContents);
-      const hash = await window.crypto.subtle.digest('SHA-256', typedArray);
-      const fileHash = Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      // const typedArray = new Uint8Array(fileContents);
+      // console.log(typedArray);
+      let enc = encryptFile(fileContents);
+      enc=JSON.stringify(enc)
+      console.log(enc); 
+      // const hash = await window.crypto.subtle.digest('SHA-256', typedArray);
+
+      // const fileHash = Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');
       const r = await uploadedFile({
         folderId: folder.folderId,
         level: folder.level,
         fileName: file.name,
-        fileContents: typedArray,
+        // fileContents: typedArray,
         previewImage,
-        fileHash,
+        enc:enc,
         fileSize: file.size,
         fileType: file.type,
       }).unwrap();
-      setFile(null);
-      dispatch(pushFile(r));
-      dispatch(closeFileCreation());
+      // setFile(null);
+      // dispatch(pushFile(r));
+      // dispatch(closeFileCreation());
       document.getElementById('root').style.pointerEvents = '';
     };
 
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   };
   return (
     <Modal id="fileUploadModal" active={fileOverLay} closeActive={() => dispatch(closeFileCreation())}>

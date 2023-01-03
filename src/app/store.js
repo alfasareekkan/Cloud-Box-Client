@@ -11,6 +11,7 @@ import iconReducer from '../features/Global/iconSlice';
 import createMenuReducer from '../features/Global/menuSlice';
 import modalReducer from '../features/Global/modalSlice';
 import { driveApiSlice } from './api/driveApiSlice';
+import fileSizeReducer from '../features/Global/fileSizeSlice';
 import folderReducer from '../features/folder/folderSlice';
 import { authApiSlice } from '../features/auth/authApiSlice';
 
@@ -32,6 +33,7 @@ export const store = configureStore({
     icon: iconReducer,
     createMenu: createMenuReducer,
     modal: modalReducer,
+    fileSize: fileSizeReducer,
 
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

@@ -28,6 +28,7 @@
     "@syncfusion/ej2-react-popups": "^19.4.52",
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
+    "crypto-js": "^4.1.1",
     "docx": "^7.8.1",
     "framer-motion": "^7.6.19",
     "html2canvas": "^1.4.1",
