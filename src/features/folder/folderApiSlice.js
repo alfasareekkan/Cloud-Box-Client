@@ -17,7 +17,7 @@ export const folderApiSlice = driveApiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
-    getAllFolders: builder.mutation({
+    getAllFoldersAndFiles: builder.mutation({
       query: (credentials) => ({
         url: 'get-all-folders',
         body: { ...credentials },
@@ -29,5 +29,5 @@ export const folderApiSlice = driveApiSlice.injectEndpoints({
 
 export const
   {
-    useCreateFolderMutation, useGetFolderMutation, useGetAllFoldersMutation,
+    useCreateFolderMutation, useGetFolderMutation, useGetAllFoldersAndFilesMutation,
   } = folderApiSlice;

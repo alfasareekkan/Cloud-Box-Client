@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FileUploader } from 'react-drag-drop-files';
 import pdfjsLib, { getDocument } from 'pdfjs-dist';
 
+import ClipLoader from 'react-spinners/ClipLoader';
 import Modal from './Modal';
 import { closeFileCreation } from '../../features/Global/modalSlice';
 import { useUploadFileMutation } from '../../features/file/fileApiSlice';
@@ -25,6 +26,7 @@ function FileModal() {
     setFile(null);
   };
   const handleUpload = async (e) => {
+    document.getElementById('root').style.pointerEvents = 'none';
     const previewImage = await createPreviewImage(file, e);
     console.log(file);
     const reader = new FileReader();
@@ -45,9 +47,10 @@ function FileModal() {
       }).unwrap();
       setFile(null);
       dispatch(pushFile(r));
-      console.log(r);
+      dispatch(closeFileCreation());
+      document.getElementById('root').style.pointerEvents = '';
     };
-    
+
     reader.readAsArrayBuffer(file);
   };
   return (
@@ -63,7 +66,9 @@ function FileModal() {
         {/* <input type="file"  onChange={handleChange}/> */}
         <div className="flex justify-end mt-4">
           <button className="mr-3 text-gray-900" onClick={handleModalCancel}>Cancel</button>
-          <button className="text-blue-600" onClick={handleUpload}>Upload</button>
+          {
+            isLoading ? <ClipLoader size={22} /> : <button className="text-blue-600" onClick={handleUpload}>Upload</button>
+          }
 
         </div>
         {/* <p>{file ? `File name: ${file[0].name}` : 'no files uploaded yet'}</p> */}

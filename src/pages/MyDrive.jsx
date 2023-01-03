@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Folder, FileCard } from '../components/index';
-import { useGetAllFoldersMutation } from '../features/folder/folderApiSlice';
+import { useGetAllFoldersAndFilesMutation } from '../features/folder/folderApiSlice';
 import { insertChildFolders, updateFolder, pushFile } from '../features/folder/folderSlice';
 import PreLoader from '../components/PreLoader/PreLoader';
 
@@ -13,16 +13,16 @@ function MyDrive() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const [getAllFolders, { isLoading }] = useGetAllFoldersMutation();
+  const [getAllFoldersAndFiles, { isLoading }] = useGetAllFoldersAndFilesMutation();
   const user = localStorage.getItem('refreshToken');
   async function fetchFolders() {
-    const folders = await getAllFolders({
+    const contents = await getAllFoldersAndFiles({
       user,
       folderId: folder.folderId,
       level: folder.level,
     }).unwrap();
-
-    dispatch(insertChildFolders(folders));
+console.log(contents);
+    dispatch(insertChildFolders(contents));
   }
   useEffect(() => {
     if (id) {

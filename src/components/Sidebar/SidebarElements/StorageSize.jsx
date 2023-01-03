@@ -6,7 +6,7 @@ import './StorageSize.css';
 function StorageSize() {
   return (
     <div >
-      <p className='text-gray-500  dark:text-gray-400'>17.1 / 20 GB Used</p>
+      <p className='text-gray-500  dark:text-gray-400'>4 Mb / 1 GB Used</p>
       <Box sx={{ width: '90%' }} className='mt-3'>
         <LinearProgress variant="buffer" value={55} valueBuffer={78} />
           </Box>

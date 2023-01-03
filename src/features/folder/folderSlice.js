@@ -28,7 +28,8 @@ const folderSlice = createSlice({
       state.childFolders.push(action.payload);
     },
     insertChildFolders: (state, action) => {
-      state.childFolders = [...action.payload];
+      state.childFolders = [...action.payload.folders];
+      state.childFiles = [...action.payload.files];
     },
     insertPath: (state, action) => {
       const data = state.path.find((path) => path.id === action.payload._id);

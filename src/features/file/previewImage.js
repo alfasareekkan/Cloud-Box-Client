@@ -45,10 +45,15 @@ async function generatePdfPreviewImage(file) {
 
 export const createPreviewImage = (file) => {
   if (file.type.match(/image.*/)) {
-    const reader = new FileReader();
-    reader.onload = () => file;
-    reader.readAsDataURL(file);
-  } else if (file.type === 'application/pdf') {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageData = e.target.result;
+        resolve(imageData); 
+      };
+      reader.readAsDataURL(file);
+    });
+  } if (file.type === 'application/pdf') {
     return new Promise((resolve) => {
       const reader = new FileReader();
       let previewImage;
@@ -59,7 +64,7 @@ export const createPreviewImage = (file) => {
       };
       reader.readAsDataURL(file);
     });
-  } else if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type === 'application/vnd.ms-excel') {
+  } if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type === 'application/vnd.ms-excel') {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = async (e) => {
@@ -74,7 +79,7 @@ export const createPreviewImage = (file) => {
       };
       reader.readAsBinaryString(file);
     });
-  } else if (file.type === 'application/msword') {
+  } if (file.type === 'application/msword') {
     return new Promise((resolve) => {
       // const doc = await docx.parse(file);
       // const docText = doc.getFullText();
