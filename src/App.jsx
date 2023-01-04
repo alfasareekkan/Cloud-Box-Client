@@ -7,6 +7,7 @@ import { setCredentials } from './features/auth/authSlice';
 import FolderModal from './components/Modal/FolderModal';
 import FileModal from './components/Modal/FileModal';
 import { useGetRefreshTokenMutation } from './features/auth/authApiSlice';
+// import ShareModal from './components/Modal/ShareModal';
 // import {useFolder} from './hooks/useFolder'
 
 function App() {

@@ -32,8 +32,11 @@ function LoginPage() {
     try {
       const googleRes = await googleSignUP(res.credential);
       if (googleRes.data) {
+        localStorage.setItem('refreshToken', googleRes.data.refreshToken);
         localStorage.setItem('accessToken', googleRes.data.accessToken);
         dispatch(setCredentials({ user: googleRes.data, accessToken: googleRes.data.accessToken }));
+      navigate('/dashboard/v1/myDrive');
+        
       }
     } catch (error) {
       // toast.error("server error");

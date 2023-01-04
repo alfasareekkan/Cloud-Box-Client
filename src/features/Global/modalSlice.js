@@ -6,6 +6,8 @@ const modalSlice = createSlice({
   initialState: {
     folderCreationModal: false,
     fileCreationModal: false,
+    shareFolder: false,
+    shareFolderId: '',
   },
   reducers: {
     openFolderCreation: (state) => {
@@ -22,12 +24,23 @@ const modalSlice = createSlice({
     closeFileCreation: (state) => {
       state.fileCreationModal = false;
     },
+    openFolderShare: (state) => {
+      if (state.shareFolder) state.shareFolder = false;
+      state.shareFolder = true;
+    },
+    closeFolderShare: (state) => {
+      state.shareFolder = false;
+    },
+    setShareFolderModalId: (state, action) => {
+      state.shareFolderId = action.payload;
+    },
   },
 
 });
 
 export const
   {
-    openFolderCreation, closeFolderCreation, openFileCreation, closeFileCreation,
+    openFolderCreation, closeFolderCreation,
+    openFileCreation, closeFileCreation, openFolderShare, closeFolderShare, setShareFolderModalId,
   } = modalSlice.actions;
 export default modalSlice.reducer;

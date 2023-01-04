@@ -6,6 +6,7 @@ import SignUpPage from '../pages/SignUpPage';
 import Dashboard from '../pages/DashBoard/Dashboard';
 import RequireAuth from '../features/auth/RequireAuth';
 import MyDrive from '../pages/MyDrive';
+import SharedWithMe from '../pages/SharedWithMe';
 
 function Routers() {
   return (
@@ -18,6 +19,7 @@ function Routers() {
         <Route path="v1" element={<Dashboard />}>
           <Route path="myDrive" element={<MyDrive />} />
           <Route path=":id" element={<MyDrive />} />
+          <Route path="shared-with-me" element={<SharedWithMe />} />
 
         </Route>
 

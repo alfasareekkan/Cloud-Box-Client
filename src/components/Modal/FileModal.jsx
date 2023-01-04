@@ -39,9 +39,9 @@ function FileModal() {
       const fileContents = reader.result;
       const typedArray = new Uint8Array(fileContents);
       console.log(typedArray);
-      let enc = encryptFile(fileContents);
-      enc=JSON.stringify(enc)
-      console.log(enc); 
+      // let enc = encryptFile(fileContents);
+      // enc=JSON.stringify(enc)
+      // console.log(enc); 
       const hash = await window.crypto.subtle.digest('SHA-256', typedArray);
 
       const fileHash = Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');

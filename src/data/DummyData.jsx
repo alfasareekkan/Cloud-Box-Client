@@ -14,15 +14,18 @@ export const links = [
   {
     title: 'My Drive',
     icon: <FiHardDrive />,
+    link: '/dashboard/v1/myDrive',
 
   },
   {
     title: 'Files',
     icon: <FiFileText />,
+    link: '',
   },
   {
-    title: 'Recent',
+    title: 'Shared with me',
     icon: <RiTimerLine />,
+    link: '/dashboard/v1/shared-with-me',
   },
   {
     title: 'Favourite',
@@ -31,6 +34,7 @@ export const links = [
   {
     title: 'Trash',
     icon: <BsTrash />,
+    link: '',
   },
 ];
 

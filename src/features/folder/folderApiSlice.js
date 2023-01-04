@@ -24,10 +24,18 @@ export const folderApiSlice = driveApiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
+    isUserShareFolder: builder.mutation({
+      query: (credentials) => ({
+        url: 'share-folder',
+        body: { ...credentials },
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
 export const
   {
-    useCreateFolderMutation, useGetFolderMutation, useGetAllFoldersAndFilesMutation,
+    useCreateFolderMutation, useGetFolderMutation,
+    useGetAllFoldersAndFilesMutation, useIsUserShareFolderMutation,
   } = folderApiSlice;
