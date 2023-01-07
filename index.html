@@ -27,6 +27,11 @@
     <div class="loader-container">
       <div class="loader"></div>
    </div>
+   <script>
+    if (global === undefined) {
+      var global = window;
+    }
+  </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
