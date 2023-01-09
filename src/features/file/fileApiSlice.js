@@ -17,7 +17,15 @@ const fileApiSlice = driveApiSlice.injectEndpoints({
         // body: { ...credentials },
       }),
     }),
+    getFile: builder.mutation({
+      query: (credentials) => ({
+        url: 'files/get-file',
+        method: 'POST',
+      
+        body: { ...credentials },
+      }),
+    }),
   }),
 });
 
-export const { useUploadFileMutation, useGetFileSizeQuery } = fileApiSlice;
+export const { useUploadFileMutation, useGetFileSizeQuery, useGetFileMutation } = fileApiSlice;

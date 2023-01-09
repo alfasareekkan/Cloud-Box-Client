@@ -35,8 +35,9 @@ function FileModal() {
     const previewImage = await createPreviewImage(file, e);
     console.log(file);
     const reader = new FileReader();
-    reader.onload = async () => {
+    reader.onload = async (e) => {
       const fileContents = reader.result;
+      console.log(fileContents);
       const typedArray = new Uint8Array(fileContents);
       console.log(typedArray);
       // let enc = encryptFile(fileContents);
@@ -62,7 +63,7 @@ function FileModal() {
       document.getElementById('root').style.pointerEvents = '';
     };
 
-    reader.readAsDataURL(file);
+    reader.readAsArrayBuffer(file);
   };
   return (
     <Modal id="fileUploadModal" active={fileOverLay} closeActive={() => dispatch(closeFileCreation())}>

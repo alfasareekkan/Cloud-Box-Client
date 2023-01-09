@@ -69,7 +69,6 @@ export default function Folder(props) {
   const open = Boolean(anchorEl);
   const handleRightClick = (event) => {
     event.preventDefault(); // This will prevent the default right-click menu from appearing
-    console.log(event.currentTarget);
     if (anchorEl) {
     setAnchorEl(null);
       
@@ -78,7 +77,6 @@ export default function Folder(props) {
       dispatch(setShareFolderModalId(props.folder._id))
       
     }
-    console.log(anchorEl);
   };
   const handleClose = () => {
     setAnchorEl(null);
