@@ -34,8 +34,9 @@ export default function BasicModal() {
   }, [folderShare]);
 
   const handleSubmit = async () => {
-    console.log(inputRef.tar);
+  
     try {
+      console.log(modalId);
       const result = await isUserShareFolder({
           email: inputRef.current.value, folderId: modalId,
       }).unwrap();

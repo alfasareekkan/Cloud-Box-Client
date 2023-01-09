@@ -21,7 +21,6 @@ function MyDrive() {
       folderId: folder.folderId,
       level: folder.level,
     }).unwrap();
-console.log(contents);
     dispatch(insertChildFolders(contents));
   }
   useEffect(() => {

@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useGetAllShareFilesMutation } from '../features/shared/shareFileApiSlice';
+import { setChileFiles } from '../features/shared/shareFileSlice';
+import { FileCard } from '../components/index';
 
 function SharedWithMe() {
+  const [getAllShareFiles] = useGetAllShareFilesMutation()
+  const dispatch = useDispatch();
+  const childFiles=useSelector((state)=>state.shared.childFiles)
+ async function SharedWithMeGET() {
+   let data = await getAllShareFiles().unwrap()
+   dispatch(setChileFiles(data))
+  }
+  useEffect(() => {
+    SharedWithMeGET()
+
+  },[])
   return (
     <div className="mt-10 ml-5">
 
@@ -20,13 +35,13 @@ function SharedWithMe() {
         <div className=" flex flex-wrap flex-col  items-center  mb-8 sm:flex-row">
           <canvas id="canvas" hidden />
           <div id="xlsxDiv" className="absolute -z-20" />
-          {/* {
-              folder.childFiles?.map((value) => (
+          {
+              childFiles?.map((value) => (
                 // eslint-disable-next-line no-underscore-dangle
 
                 <FileCard key={value._id} file={value} />
               ))
-            } */}
+            }
 
         </div>
       </div>

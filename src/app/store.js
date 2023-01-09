@@ -14,6 +14,7 @@ import { driveApiSlice } from './api/driveApiSlice';
 import fileSizeReducer from '../features/Global/fileSizeSlice';
 import folderReducer from '../features/folder/folderSlice';
 import { authApiSlice } from '../features/auth/authApiSlice';
+import sharedFileReducer from '../features/shared/shareFileSlice';
 
 const persistConfig = {
   key: 'root',
@@ -34,6 +35,7 @@ export const store = configureStore({
     createMenu: createMenuReducer,
     modal: modalReducer,
     fileSize: fileSizeReducer,
+    shared: sharedFileReducer,
 
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

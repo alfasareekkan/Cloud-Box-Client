@@ -7,8 +7,7 @@ const fileSizeSlice = createSlice({
     fileSize: 0,
   },
   reducers: {
-      setFileSize: (state, action) => {
-        console.log(action.payload,"ff");
+    setFileSize: (state, action) => {
       state.fileSize = action.payload;
     },
   },
