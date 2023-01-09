@@ -20,7 +20,7 @@ export const links = [
   {
     title: 'Files',
     icon: <FiFileText />,
-    link: '',
+    link: '/dashboard/v1/all-files',
   },
   {
     title: 'Shared with me',

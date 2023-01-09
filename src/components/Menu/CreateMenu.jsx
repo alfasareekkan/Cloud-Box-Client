@@ -21,20 +21,10 @@ function CreateMenu() {
     reader.readAsText(file);
   };
   const handleFileChange = (event) => {
-    // const selectedFile = event.target.files[0];
+   
     if (event.target.files.length > 0) {
-      // Set the file in the state
-      console.log('😒😒');
+   
       setFile(event.target.files[0]);
-      // const reader = new FileReader();
-      // console.log(reader);
-      // reader.onload = () => {
-      //   const fileContents = reader.result;
-      //   console.log(fileContents);
-      //   const typedArray = new Uint8Array(fileContents);
-      //   console.log(typedArray);
-      // };
-      // reader.readAsArrayBuffer(file);
     }
   };
   const dispatch = useDispatch();
@@ -42,7 +32,6 @@ function CreateMenu() {
     dispatch(openFolderCreation());
   };
   const handleFileCreation = () => {
-    console.log("sdfasf");
     dispatch(openFileCreation())
   }
   return (
