@@ -3,7 +3,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const driveBaseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:4007/',
+  baseUrl: import.meta.env.VITE_DRIVE_API,
   credentials: 'include',
   prepareHeaders: (headers) => {
     const token = localStorage.getItem('refreshToken');

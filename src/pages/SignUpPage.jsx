@@ -71,7 +71,7 @@ function SignUpPage() {
       dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }));
       localStorage.setItem('accessToken', userData.accessToken);
 
-      navigate('/dashboard');
+      navigate('/dashboard/v1/myDrive');
     } catch (error) {
       toast.error(error.data.errors.email);
     }

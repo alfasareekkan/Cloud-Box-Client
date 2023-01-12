@@ -67,8 +67,6 @@ function MyDrive() {
                 <FileCard key={value._id} file={value} />
               ))
             }
-            <a href='https://res.cloudinary.com/dkxnydqdt/raw/upload/v1673064141/Mohammed_Alfas_A__BCK35___Manifest_File_fftybl.xlsx' target='_blank' rel='noopener noreferrer'>frsrf</a>
-
         </div>
       </div>
     </div>
