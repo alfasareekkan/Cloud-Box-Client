@@ -29,9 +29,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
+    getUserDetails: builder.mutation({
+      query: () => ({
+        url: 'user/get-user',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
 export const {
-  useLoginMutation, useSignupMutation, useGetRefreshTokenMutation, useGoogleSignUPMutation,
+  useLoginMutation, useSignupMutation, useGetRefreshTokenMutation,
+  useGoogleSignUPMutation, useGetUserDetailsMutation,
 } = authApiSlice;

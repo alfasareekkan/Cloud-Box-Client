@@ -9,7 +9,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { setSidebar } from '../../features/Global/sidebarSlice';
 import { setNotification, setUserProfile } from '../../features/Global/iconSlice';
-import avatar from '../../assets/avatar.jpg';
+import avatar from '../../assets/avatar.svg';
 import { UserProfile, Notification } from '../index';
 import './NavBar.css';
 import { setCreateMenu } from '../../features/Global/menuSlice';
@@ -32,6 +32,8 @@ function DashNavBar() {
   const activeMenu = useSelector((state) => state.sideBar.menu);
   const notification = useSelector((state) => state.icon.notification);
   const userProfile = useSelector((state) => state.icon.userProfile);
+  const user = useSelector((state) => state.auth.user);
+
   // const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
@@ -56,7 +58,11 @@ function DashNavBar() {
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
             onClick={() => dispatch(setUserProfile(!userProfile))}
           >
-            <img src={avatar} className="rounded-full w-8 h-8" alt="" />
+            {
+              user?.profile ? (<img src={user.profile} className="rounded-full w-8 h-8" alt="" />) : (
+                <img src={avatar} className="rounded-full w-8 h-8" alt="" />)
+            }
+
             <p>
               <span className="text-gray-400 text-14">Hi, </span>
               {' '}

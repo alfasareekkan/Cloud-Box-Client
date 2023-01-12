@@ -30,11 +30,12 @@ function LoginPage() {
   const cookies = new Cookies();
   async function handleCallbackResponse(res) {
     try {
-      const googleRes = await googleSignUP(res.credential);
-      if (googleRes.data) {
-        localStorage.setItem('refreshToken', googleRes.data.refreshToken);
-        localStorage.setItem('accessToken', googleRes.data.accessToken);
-        dispatch(setCredentials({ user: googleRes.data, accessToken: googleRes.data.accessToken }));
+      const googleRes = await googleSignUP(res.credential).unwrap();
+      console.log(googleRes);
+      if (googleRes) {
+        localStorage.setItem('refreshToken', googleRes.refreshToken);
+        localStorage.setItem('accessToken', googleRes.accessToken);
+        dispatch(setCredentials({ user: googleRes.user, accessToken: googleRes.accessToken }));
       navigate('/dashboard/v1/myDrive');
         
       }
@@ -65,10 +66,6 @@ function LoginPage() {
     e.preventDefault();
     try {
       const userData = await login({ email, password }).unwrap();
-
-      // cookies.set('jwt', userData.newRefreshToken, {
-      //   path: '/', httpOnly: true, secure: true, sameSite: 'none', maxAge: 24 * 60 * 60 * 1000,
-      // });
       dispatch(setCredentials({
         user: userData.user, accessToken: userData.accessToken,
       }));
@@ -76,9 +73,7 @@ function LoginPage() {
       localStorage.setItem('refreshToken', userData.refreshToken);
       setEmail('');
       setPassword('')
-      console.log(userData);
       navigate('/dashboard/v1/myDrive');
-      console.log(userData);
     } catch (errors) {
       if (errors.status === 400) {
         toast.error(`${errors.data.errors.email} ${errors.data.errors.password}`);

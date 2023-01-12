@@ -32,10 +32,11 @@ function SignUpPage() {
   const dispatch = useDispatch();
   async function handleCallbackResponse(res) {
     try {
-      const googleRes = await googleSignUP(res.credential);
-      if (googleRes.data) {
-        localStorage.setItem('accessToken', googleRes.data.accessToken);
-        dispatch(setCredentials({ user: googleRes.data, accessToken: googleRes.data.accessToken }));
+      const googleRes = await googleSignUP(res.credential).unwrap();
+      if (googleRes) {
+        localStorage.setItem('accessToken', googleRes.accessToken);
+        dispatch(setCredentials({ user: googleRes.user, accessToken: googleRes.accessToken }));
+        navigate('/dashboard/v1/myDrive');
       }
     } catch (error) {
       toast.error('server error');
