@@ -5,11 +5,15 @@ import { BsPersonX } from 'react-icons/bs';
 import { userProfileData } from '../../data/DummyData';
 import avatar from '../../assets/avatar.svg';
 import { logOut } from '../../features/auth/authSlice';
+import { setUserProfile } from '../../features/Global/iconSlice';
 
 function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const userProfile = useSelector((state) => state.icon.userProfile);
+ 
+
   function handleLogout() {
     dispatch(logOut());
     localStorage.removeItem('refreshToken');
@@ -17,6 +21,7 @@ function UserProfile() {
     navigate('/login');
   }
   function handleProfile() {
+    dispatch(setUserProfile(!userProfile));
     navigate('/dashboard/v1/user-profile');
   }
 
