@@ -6,7 +6,7 @@ import { Footer } from './components/index';
 import { setCredentials } from './features/auth/authSlice';
 import FolderModal from './components/Modal/FolderModal';
 import FileModal from './components/Modal/FileModal';
-import { useGetRefreshTokenMutation } from './features/auth/authApiSlice';
+import { useGetRefreshTokenMutation,useGetUserDetailsMutation } from './features/auth/authApiSlice';
 // import ShareModal from './components/Modal/ShareModal';
 // import {useFolder} from './hooks/useFolder'
 
@@ -18,6 +18,7 @@ function App() {
   const cookie = new Cookies();
   const userToken = localStorage.getItem('refreshToken');
   const [getRefreshToken] = useGetRefreshTokenMutation();
+  const [getUserDetails] = useGetUserDetailsMutation();
 
   function someRequest() { // Simulates a request; makes a "promise" that'll run for 2.5 seconds
     // eslint-disable-next-line no-promise-executor-return
@@ -37,8 +38,10 @@ function App() {
   async function getToken() {
    try {
      const refreshToken = await getRefreshToken().unwrap()
+     const getUser=await getUserDetails().unwrap()
+
      localStorage.setItem('refreshToken', refreshToken.refreshToken);
-    dispatch(setCredentials({ token: refreshToken }));
+    dispatch(setCredentials({ token: refreshToken,user:getUser }));
 
     
    } catch (error) {
