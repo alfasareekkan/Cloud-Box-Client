@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
@@ -6,21 +7,20 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       const { user, accessToken } = action.payload;
-      // eslint-disable-next-line no-param-reassign
       state.user = user;
-      // eslint-disable-next-line no-param-reassign
       state.token = accessToken;
     },
     logOut(state) {
-      // eslint-disable-next-line no-param-reassign
       state.user = null;
-      // eslint-disable-next-line no-param-reassign
       state.token = null;
     },
+    changeOtpStatus: (state) => {
+      state.user.otpVerify = true;
+    }
   },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut, changeOtpStatus } = authSlice.actions;
 export default authSlice.reducer;
 export const selectCurrentUser = (state) => state.auth.user;
 export const selectCurrentToken = (state) => state.auth.token;

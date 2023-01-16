@@ -14,7 +14,7 @@
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
     "@mui/icons-material": "^5.10.15",
-    "@mui/material": "^5.10.15",
+    "@mui/material": "^5.11.4",
     "@mui/styled-engine-sc": "^5.10.14",
     "@reduxjs/toolkit": "^1.9.1",
     "@syncfusion/ej2": "^19.4.48",

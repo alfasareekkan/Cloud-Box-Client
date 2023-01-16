@@ -7,6 +7,7 @@ import { setCredentials } from './features/auth/authSlice';
 import FolderModal from './components/Modal/FolderModal';
 import FileModal from './components/Modal/FileModal';
 import { useGetRefreshTokenMutation,useGetUserDetailsMutation } from './features/auth/authApiSlice';
+import { Toaster } from 'react-hot-toast';
 // import ShareModal from './components/Modal/ShareModal';
 // import {useFolder} from './hooks/useFolder'
 
@@ -65,6 +66,7 @@ function App() {
       <FileModal />
       <Routers />
       <Footer />
+      
     </div>
   );
 }

@@ -9,6 +9,7 @@ import MyDrive from '../pages/MyDrive';
 import SharedWithMe from '../pages/SharedWithMe';
 import FilesPages from '../pages/FilesPage';
 import UserProfilePage from '../pages/UserProfilePage';
+import ForgotPassword from '../pages/ForgotPassword';
 
 function Routers() {
   return (  
@@ -16,6 +17,8 @@ function Routers() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/forgot" element={<ForgotPassword />} />
+
       {/* protected route */}
       <Route path="/dashboard" element={<RequireAuth />}>
         <Route path="v1" element={<Dashboard />}>
