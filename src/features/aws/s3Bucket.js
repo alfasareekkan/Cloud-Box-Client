@@ -1,6 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable import/prefer-default-export */
 import S3 from 'aws-sdk/clients/s3';
+// import {S3Client} from "@aws-sdk/client-s3";
+
 
 const bucketName = import.meta.env.VITE_AWS_BUCKET_NAME;
 const region = import.meta.env.VITE_AWS_BUCKET_REGION;
