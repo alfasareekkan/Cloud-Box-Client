@@ -11,6 +11,7 @@ import { closeFileCreation } from '../../features/Global/modalSlice';
 import { useUploadFileMutation } from '../../features/file/fileApiSlice';
 import { createPreviewImage } from '../../features/file/previewImage';
 import { pushFile } from '../../features/folder/folderSlice';
+import { uploadFile } from '../../features/aws/s3Bucket';
 
 function FileModal() {
   const dispatch = useDispatch();
@@ -33,27 +34,24 @@ function FileModal() {
   const handleUpload = async (e) => {
     document.getElementById('root').style.pointerEvents = 'none';
     const previewImage = await createPreviewImage(file, e);
-    console.log(file);
     const reader = new FileReader();
     reader.onload = async (e) => {
       const fileContents = reader.result;
-      console.log(fileContents);
-      const typedArray = new Uint8Array(fileContents);
-      console.log(typedArray);
+      const awsRes  = await uploadFile(file, fileContents);
+      // const typedArray = new Uint8Array(fileContents);
+      // console.log(typedArray);
       // let enc = encryptFile(fileContents);
       // enc=JSON.stringify(enc)
       // console.log(enc); 
-      const hash = await window.crypto.subtle.digest('SHA-256', typedArray);
+      // const hash = await window.crypto.subtle.digest('SHA-256', typedArray);
 
-      const fileHash = Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      // const fileHash = Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('');
       const r = await uploadedFile({
         folderId: folder.folderId,
         level: folder.level,
         fileName: file.name,
-        fileContents: typedArray,
+        fileContents: awsRes,
         previewImage,
-        typedArray,
-        fileHash,
         fileSize: file.size,
         fileType: file.type,
       }).unwrap();
