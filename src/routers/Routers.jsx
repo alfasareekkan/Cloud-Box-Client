@@ -10,14 +10,19 @@ import SharedWithMe from '../pages/SharedWithMe';
 import FilesPages from '../pages/FilesPage';
 import UserProfilePage from '../pages/UserProfilePage';
 import ForgotPassword from '../pages/ForgotPassword';
+import OtpPage from '../pages/OtpPage';
+import ChangePasswordPage from '../pages/ChangePasswordPage';
 
 function Routers() {
-  return (  
+  return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/forgot" element={<ForgotPassword />} />
+      <Route path="/otp" element={<OtpPage />} />  
+      <Route path="/change-password" element={<ChangePasswordPage />} />  
+
 
       {/* protected route */}
       <Route path="/dashboard" element={<RequireAuth />}>
@@ -27,8 +32,6 @@ function Routers() {
           <Route path="shared-with-me" element={<SharedWithMe />} />
           <Route path="all-files" element={<FilesPages />} />
           <Route path="user-profile" element={<UserProfilePage />} />
-
-
 
         </Route>
 

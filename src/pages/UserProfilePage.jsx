@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import toast, { Toaster } from 'react-hot-toast';
@@ -13,7 +14,6 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import avatar from '../assets/avatar.svg';
 import { useSendOtpMutation, useSubmitOtpMutation, useChangePasswordMutation } from '../features/auth/authApiSlice';
 import { changeOtpStatus } from '../features/auth/authSlice';
-import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
   const {

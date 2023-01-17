@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -176,9 +176,9 @@ function LoginPage() {
                   </div>
                   <div className="text-sm">
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#" className="font-medium text-[#8F92F6] hover:text-[#8F92F6]">
+                    <Link to={"/forgot"} className="font-medium text-[#8F92F6] hover:text-[#8F92F6]">
                       Forgot your password?
-                    </a>
+                    </Link>
                   </div>
 
                   {/* <div className="text-sm">

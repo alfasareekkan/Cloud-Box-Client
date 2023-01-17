@@ -56,11 +56,33 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: credentials,
       }),
     }),
+    submitChangeOtp: builder.mutation({
+      query: (credentials) => ({
+        url: 'user/otp-password',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
+    forgotOtp: builder.mutation({
+      query: (credentials) => ({
+        url: 'user/forgot-password',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
+    newPasswordSet: builder.mutation({
+      query: (credentials) => ({
+        url: 'user/new-password',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
   }),
 });
 
 export const {
   useLoginMutation, useSignupMutation, useGetRefreshTokenMutation,
   useGoogleSignUPMutation, useGetUserDetailsMutation, useSendOtpMutation, useSubmitOtpMutation,
-  useChangePasswordMutation
+  useChangePasswordMutation, useForgotOtpMutation, useNewPasswordSetMutation,
+  useSubmitChangeOtpMutation
 } = authApiSlice;
