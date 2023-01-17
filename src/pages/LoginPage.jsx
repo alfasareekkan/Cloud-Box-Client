@@ -12,7 +12,7 @@ import { useLoginMutation, useGoogleSignUPMutation } from '../features/auth/auth
 import Navbar from '../components/Navbar';
 import PreLoader from '../components/PreLoader/PreLoader';
 // eslint-disable-next-line import/no-unresolved
-import cloudLogin from '../assets/CloudLogin.jpg';
+import cloudLogin from '../assets/cloudLogin.jpg';
 import LogoText from '../assets/logoText.png';
 
 function LoginPage() {
