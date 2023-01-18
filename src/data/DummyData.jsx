@@ -30,11 +30,12 @@ export const links = [
   {
     title: 'Favourite',
     icon: <AiOutlineStar />,
+    link: '/dashboard/v1/favorite',
   },
   {
     title: 'Trash',
     icon: <BsTrash />,
-    link: '',
+    link: '/dashboard/v1/trash',
   },
 ];
 

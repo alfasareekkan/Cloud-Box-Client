@@ -7,6 +7,7 @@ import { Folder, FileCard } from '../components/index';
 import { useGetAllFoldersAndFilesMutation } from '../features/folder/folderApiSlice';
 import { insertChildFolders, updateFolder, pushFile } from '../features/folder/folderSlice';
 import PreLoader from '../components/PreLoader/PreLoader';
+import { Toaster } from 'react-hot-toast';
 
 function MyDrive() {
   const folder = useSelector((state) => state.folder);
@@ -71,7 +72,11 @@ function MyDrive() {
             
 
         </div>
-      </div>
+        </div>
+        <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+      />
     </div>
   );
   return content;

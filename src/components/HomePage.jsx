@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import unnamed from '../assets/unnamed.jpg';
 import logoText from '../assets/logoText.png';
 import cloud from '../assets/cloud.png';
 
 function HomePage() {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate('/dashboard/v1/myDrive')
+  }
   return (
     <>
       <div className="flex flex-col lg:flex-row w-full md:h-fit">
@@ -21,6 +25,7 @@ function HomePage() {
             <div className="flex mt-5 sm:">
               <button
                 type="button"
+                onClick={handleNavigate}
                 className="inline-flex items-center rounded-md border border-transparent bg-[#8F92F6] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#8F92F6] focus:outline-none focus:ring-2 focus:ring-[#8F92F6] focus:ring-offset-2"
               >
                 Try Box for Work
@@ -28,6 +33,7 @@ function HomePage() {
               <div className="ml-5">
                 <button
                   type="button"
+                  onClick={handleNavigate}
                   className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   GoTo Box

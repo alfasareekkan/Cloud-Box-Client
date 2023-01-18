@@ -13,7 +13,7 @@ const fileApiSlice = driveApiSlice.injectEndpoints({
       query: () => ({
         url: 'files/get-file-size',
         method: 'GET',
-      
+
         // body: { ...credentials },
       }),
     }),
@@ -21,7 +21,7 @@ const fileApiSlice = driveApiSlice.injectEndpoints({
       query: (credentials) => ({
         url: 'files/get-file',
         method: 'POST',
-      
+
         body: { ...credentials },
       }),
     }),
@@ -31,11 +31,29 @@ const fileApiSlice = driveApiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
-    
+    deleteFile: builder.mutation({
+      query: (credentials) => ({
+        url: `files/delete-file/${credentials}`,
+        method: 'DELETE',
+      }),
+    }),
+    addToFavourite: builder.mutation({
+      query: (credentials) => ({
+        url: `files/add-to-favourite/${credentials}`,
+        method: 'PATCH',
+      }),
+    }),
+    getAllFavorite: builder.mutation({
+      query: () => ({
+        url: 'files/get-all-favorite',
+        method: 'GET',
+      }),
+    }),
   }),
-  
+
 });
 
 export const {
-  useUploadFileMutation, useGetFileSizeQuery, useGetFileMutation, useGetAllFileMutation
+  useUploadFileMutation, useGetFileSizeQuery, useGetFileMutation, useGetAllFileMutation,
+  useDeleteFileMutation,useAddToFavouriteMutation,useGetAllFavoriteMutation
 } = fileApiSlice;

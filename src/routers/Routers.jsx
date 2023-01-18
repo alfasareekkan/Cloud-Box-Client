@@ -12,6 +12,8 @@ import UserProfilePage from '../pages/UserProfilePage';
 import ForgotPassword from '../pages/ForgotPassword';
 import OtpPage from '../pages/OtpPage';
 import ChangePasswordPage from '../pages/ChangePasswordPage';
+import TrashPage from '../pages/TrashPage';
+import FavouritePage from '../pages/FavouirtePage';
 
 function Routers() {
   return (
@@ -32,6 +34,9 @@ function Routers() {
           <Route path="shared-with-me" element={<SharedWithMe />} />
           <Route path="all-files" element={<FilesPages />} />
           <Route path="user-profile" element={<UserProfilePage />} />
+          <Route path="trash" element={<TrashPage />} />
+          <Route path="favorite" element={<FavouritePage />} />
+
 
         </Route>
 

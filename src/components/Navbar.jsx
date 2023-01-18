@@ -44,7 +44,7 @@ export default function Example({ data }) {
                   <div className="hidden sm:ml-6 sm:block" style={{ marginLeft: 'auto' }}>
                     <div className="flex ">
                       <Link className="bg-white-800 p-2 text-back-400 font-medium" to={data.dir}>{data.auth}</Link>
-                      <button className="ml-3 bg-[#8F92F6] font-medium hover:bg-black-700 text-white  py-2 px-4 rounded" type="button">GoTo Box</button>
+                      <Link to={'/dashboard/v1/myDrive' } className="ml-3 bg-[#8F92F6] font-medium hover:bg-black-700 text-white  py-2 px-4 rounded" >GoTo Box</Link>
                       {/* </div>              */}
                     </div>
                   </div>
@@ -56,7 +56,7 @@ export default function Example({ data }) {
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3">
                 <Link className="bg-white-800 p-1 text-back-400 font-bold" to={data.dir}>Sign in</Link>
-                <button className="bg-black hover:bg-black-700 text-white font-bold py-2 px-4 rounded" type="button">GoTo Box</button>
+                <Link to={'/dashboard/v1/myDrive'} className="bg-black hover:bg-black-700 text-white font-bold py-2 px-4 rounded" >GoTo Box</Link>
               </div>
             </Disclosure.Panel>
           </>

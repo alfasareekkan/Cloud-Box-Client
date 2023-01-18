@@ -1,6 +1,6 @@
 import React from 'react';
-import { BsFillFolderFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
+import { Toaster, toast } from 'react-hot-toast';
 
 import { styled, alpha } from '@mui/material/styles';
 
@@ -8,13 +8,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import DeleteIcon from '@mui/icons-material/Delete';
+import GradeIcon from '@mui/icons-material/Grade';
 import { openFolderShare, setShareFolderModalId } from '../../features/Global/modalSlice';
-import { useGetFileMutation } from '../../features/file/fileApiSlice';
+import { useGetFileMutation, useDeleteFileMutation,useAddToFavouriteMutation } from '../../features/file/fileApiSlice';
 import BasicModal from '../Modal/BasicModal';
-
+import { removeFile } from '../../features/folder/folderSlice';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -60,6 +61,8 @@ const StyledMenu = styled((props) => (
 function FileCard(props) {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [deleteFile] = useDeleteFileMutation();
+  const [addToFavourite]=useAddToFavouriteMutation()
   const open = Boolean(anchorEl);
   const handleRightClick = (event) => {
     event.preventDefault(); // This will prevent the default right-click menu from appearing
@@ -82,14 +85,36 @@ function FileCard(props) {
   const handleShare = (event) => {
     // event.preventDefault()
     // setAnchorEl(event.currentTarget);
-    dispatch(openFolderShare())
+    dispatch(openFolderShare());
+  };
+  const handleDelete = async () => {
+    try {
+      await deleteFile(props.file._id).unwrap();
+      toast.success('File moved to trash');
+      dispatch(removeFile(props.file._id));
+      setAnchorEl(null);
+    } catch (error) {
+      toast.error(error.data.message);
+      setAnchorEl(null);
+    }
+  };
+  const handleFavourite = async () => { 
+     try {
+       await addToFavourite(props.file._id).unwrap();
+      toast.success('File added to favorites');
+
+
+     } catch (error) {
+      toast.error(error.data.message);
+      setAnchorEl(null);
+     }
   }
   return (
-    <div className="bg-transparent w-2/12 ml-5 h-60 flex mt-5  flex-col justify-center items-center md:w-4/12  lg:w-2/12 px-2" >
-    <div onClick={handleOpen} onContextMenu={handleRightClick}>
-      <img src={props.file.cludinaryUrl} className="w-full md:h-25 md:w-8/12 aspect-video object-cover object-top " alt="PDF" />
+    <div className="bg-transparent w-2/12 ml-5 h-60 flex mt-5  flex-col justify-center items-center md:w-4/12  lg:w-2/12 px-2">
+      <div onClick={handleOpen} onContextMenu={handleRightClick}>
+        <img src={props.file.cludinaryUrl} className="w-full md:h-25 md:w-8/12 aspect-video object-cover object-top " alt="PDF" />
         <p className="mt-1 text-center text-[#5e6268] text-xs font-semibold ">{props.file.fileName}</p>
-        </div>
+      </div>
       <div>
         <StyledMenu
           id="demo-customized-menu"
@@ -102,16 +127,20 @@ function FileCard(props) {
         >
           <MenuItem onClick={handleClose} disableRipple>
             <EditIcon />
-            Edit
+            Rename
           </MenuItem>
           <MenuItem onClick={handleShare} disableRipple>
             <FileCopyIcon />
             Share
           </MenuItem>
+          <MenuItem onClick={handleFavourite} disableRipple>
+            <GradeIcon />
+            Add to Favourite
+          </MenuItem>
           <Divider sx={{ my: 0.5 }} />
-          <MenuItem onClick={handleClose} disableRipple>
-            <ArchiveIcon />
-            Archive
+          <MenuItem onClick={handleDelete} disableRipple>
+            <DeleteIcon />
+            Delete
           </MenuItem>
           <MenuItem onClick={handleClose} disableRipple>
             <MoreHorizIcon />
@@ -120,6 +149,7 @@ function FileCard(props) {
         </StyledMenu>
       </div>
       <BasicModal />
+
     </div>
   );
 }

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "sync":"aws s3 sync ./dist/ s3://cloud-box.tech/ ",
+    "invalidate":"aws cloudfront create-invalidation --distribution-id E12LYV72UDJK8I --paths /*",
     "preview": "vite preview"
   },
   "dependencies": {

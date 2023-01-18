@@ -15,6 +15,8 @@ import fileSizeReducer from '../features/Global/fileSizeSlice';
 import folderReducer from '../features/folder/folderSlice';
 import { authApiSlice } from '../features/auth/authApiSlice';
 import sharedFileReducer from '../features/shared/shareFileSlice';
+import trashFileReducer from '../features/trash/trashFileSlice'
+import favouriteReducer from '../features/favourite/favouriteSlice';
 
 const persistConfig = {
   key: 'root',
@@ -36,6 +38,8 @@ export const store = configureStore({
     modal: modalReducer,
     fileSize: fileSizeReducer,
     shared: sharedFileReducer,
+    trash: trashFileReducer,
+    favourite: favouriteReducer,
 
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

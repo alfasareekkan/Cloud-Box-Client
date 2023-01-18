@@ -31,7 +31,6 @@ function LoginPage() {
   async function handleCallbackResponse(res) {
     try {
       const googleRes = await googleSignUP(res.credential).unwrap();
-      console.log(googleRes);
       if (googleRes) {
         localStorage.setItem('refreshToken', googleRes.refreshToken);
         localStorage.setItem('accessToken', googleRes.accessToken);

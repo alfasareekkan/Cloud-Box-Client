@@ -57,6 +57,11 @@ const folderSlice = createSlice({
     pushFile: (state, action) => {
       state.childFiles = [...state.childFiles, action.payload];
     },
+    removeFile: (state, action) => {
+      const index = state.childFiles.findIndex((file) => file._id === action.payload);
+      state.childFiles.splice(index, 1);
+
+    }
 
     // default: (state) => state,
   },
@@ -64,5 +69,6 @@ const folderSlice = createSlice({
 export const {
   selectFolder, updateFolder, updateChildFolders,
   insertChildFolders, updatePath, insertPath, pushFile,
+  removeFile
 } = folderSlice.actions;
 export default folderSlice.reducer;
